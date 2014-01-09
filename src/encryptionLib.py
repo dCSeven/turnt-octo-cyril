@@ -98,4 +98,13 @@ def vigenere_dec(data,key): # FIXME
 		print "Key must be string"
 		return "invalid"
 	
-
+# returns a table of 256 fields for each possible value
+def histogramm(data):
+	if isinstance(data,str):
+		charTable=string.maketrans('','')
+		for i in data:
+			charTable[ord(i)]+=1
+		return charTable
+	else:
+		print "data must be string"
+		return "invalid"
