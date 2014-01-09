@@ -137,6 +137,7 @@ def vigenere_dec_book26(data,key): #FIXME doesn't work how it should (could also
 		
 
 	
+<<<<<<< HEAD
 
 ####Vernam
 # clean vernam en-/decryption (without anything other)
@@ -178,3 +179,15 @@ def rand_enc(data,key):
 	
 def rand_dec(data,key):
 	return 'not_done_yet'
+=======
+# returns a table of 256 fields for each possible value
+def histogramm(data):
+	if isinstance(data,str):
+		charTable=string.maketrans('','')
+		for i in data:
+			charTable[ord(i)]+=1
+		return charTable
+	else:
+		print "data must be string"
+		return "invalid"
+>>>>>>> Update encryptionLib.py
