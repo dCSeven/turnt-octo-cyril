@@ -97,7 +97,9 @@ def vigenere_dec(data,key): # FIXME
 	else: 
 		print "Key must be string"
 		return "invalid"
-	
+
+#### Tools
+
 # returns a table of 256 fields for each possible value
 def histogramm(data):
 	if isinstance(data,str):
@@ -107,4 +109,19 @@ def histogramm(data):
 		return charTable
 	else:
 		print "data must be string"
+		return "invalid"
+
+# subtracts the srings (only the letters)
+# if the strings don't have the same size the shorter will be padded with A (means Zero)
+def subtractStrings(minuend,subtrahend):
+	if isinstance(minuend,str) and isinstance(subtrahend,str):
+		length=len(minuend)-len(subtrahend)
+		if(length<0): #subtrahend longer
+			minuend+=''.zfill(-length)
+		elif(length>0):#minuend longer
+			subtrahend+=''.zfill(-length)
+		return map(lambda x,y:ord(x)-ord(y) if isinstance(x,str) and isinstance(y,str) else 0,minuend,subtrahend)
+		# TODO  add check if it is a letter and maybe add 'A' and call chr
+	else:
+		print "both parameters must be strings"
 		return "invalid"
