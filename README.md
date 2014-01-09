@@ -1,4 +1,6 @@
 turnt-octo-cyril
 ================
 
-Simple Test Repository
+Encryption Library for learning purpose
+
+Free for anyone to copy and use for their own purpose
