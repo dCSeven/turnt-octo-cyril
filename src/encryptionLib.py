@@ -52,18 +52,25 @@ def rot12(data): return data.encode('rot13')
 ####Vigenere
 # based on caeasar
 
-def vigenere_enc(data,key): #XXX maybe to solve with some kind of dict
-	if isinstance(key,str):	
-		key=map(lambda x:ord(x)-ord('A'),key.upper())
-		cryptext=array('c',data) #XXX probably not the best idea to use plaintext to initialize cryptified text
-		print key
+def vigenere_enc(data,key):return str(array('c',_vigenere_enc(data,key)).tostring())
+def _vigenere_enc(data,key): #XXX maybe to solve with some kind of dict
+	if isinstance(key,str):
+		key=map(lambda x:ord(x)-ord('A') if x.isalpha() else int(x) if x.isdigit()  else 0,key.upper())	
 		for i in xrange(len(data)):
-			cryptext[i]=caesar_splitLetter(data[i],int(key[i%len(key)])) #XXX find out which caesar to use
-		return cryptext.tostring()
+			yield caesar_splitLetter(data[i],int(key[i%len(key)])) #XXX find out which caesar it should use
 	else: 
-		print "Key must be string"
-		return "invalid"
+		raise TypeError("Key must be string") #XXX maybe extend to support more than only string
 
+def vigenere_dec(data,key):return str(array('c',_vigenere_dec(data,key)).tostring())	
+def _vigenere_dec(data,key): 
+	if isinstance(key,str):
+		key=map(lambda x:ord(x)-ord('A') if x.isalpha() else int(x) if x.isdigit()  else 0,key.upper()) # if there is a Space (or other thing) don't shift
+		key=map(lambda x:chr((-x+26)%26+ord('A')),key) # only works with caesar_splitLetter
+		key=array('c',key).tostring()
+		return _vigenere_enc(data,key)
+	else: 
+		raise TypeError("Key must be string")
+		
 # everything that is no letter will be translated into ' ' and is *NOT* recoverable
 def vigenere_enc_book(data,key):
 	if isinstance(key,str) and isinstance(data,str):
@@ -128,19 +135,7 @@ def vigenere_dec_book26(data,key): #FIXME doesn't work how it should (could also
 		print "Key and data must be string"
 		return "invalid"
 		
-def vigenere_dec(data,key): # FIXME
-	if isinstance(key,str):
-		key=map(lambda x:ord(x)-ord('A'),key.upper())
-		print key
-		print '\n'
-		key=map(lambda x:chr((-x+26)%26+ord('A')),key) # only works with caesar_splitLetter
-		print key
-		key=array('c',key).tostring()
-		print key
-		return vigenere_enc(data,key)
-	else: 
-		print "Key must be string"
-		return "invalid"
+
 	
 
 ####Vernam
