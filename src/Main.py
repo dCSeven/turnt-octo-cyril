@@ -4,19 +4,21 @@ from array import array
 
 from encryptionLib import *	# encryption stuff is in encryptionLib.py
 
-encryption=vigenere_enc_book
-decryption=vigenere_dec_book
-data=array('c',map(chr,range(49,126))).tostring()
+encryption=vernam_enc
+decryption=vernam_dec
+#data=array('c',map(chr,range(49,126))).tostring()
+data="this is sparta"
 
-key="abcde" # means shift the alphabet 5 to the right
+#key=5
+key="cxfk go"
 
 
-	
+
 def main():
 	global encryption,data,key
 	print 'Current data is\n'+data+' with key: '+str(key)
 	print 'Text:'+data
-	enc=encryption(data,key).lstrip()
+	enc=encryption(data,key)#.lstrip()
 	print 'Enc: '+enc
 	print 'Dec: '+decryption(enc,key)
 	
