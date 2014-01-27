@@ -2,6 +2,9 @@ import string
 from array import array
 
 ####Caeasar
+def caesar_enc(data,key): return caesar_splitLetter(data,key)
+def caesar_dec(data,key): return caesar_splitLetter(data,-key)
+
 def caesar_ascii(data,key):
 	to=array('c',map(lambda x:chr(x%95+32),range(key,95+key))).tostring()
 	table=array('c',map(chr,range(0,32))).tostring() + to + array('c',map(chr,range(127,256))).tostring()
