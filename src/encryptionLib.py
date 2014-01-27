@@ -2,6 +2,9 @@ import string
 from array import array
 
 ####Caeasar
+def caesar_enc(data,key): return caesar_splitLetter(data,key)
+def caesar_dec(data,key): return caesar_splitLetter(data,-key)
+
 def caesar_ascii(data,key):
 	if isinstance(key,str):
 		try:
