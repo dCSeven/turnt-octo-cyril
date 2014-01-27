@@ -137,10 +137,6 @@ def vigenere_dec_book26(data,key): #FIXME doesn't work how it should (could also
 	else:
 		print "Key and data must be string"
 		return "invalid"
-		
-
-	
-<<<<<<< HEAD
 
 ####Vernam
 # clean vernam en-/decryption (without anything other)
@@ -177,18 +173,15 @@ def rand_enc(data,key):
 	else:
 		print "Key must be int"
 		return "invalid"
-<<<<<<< HEAD
 	random.shuffle(data) # change to something more reproduceable
 	return data
 	
 def rand_dec(data,key):
 	return 'not_done_yet'
-=======
-=======
+
 
 #### Tools
 
->>>>>>> Update encryptionLib.py
 # returns a table of 256 fields for each possible value
 def histogramm(data):
 	if isinstance(data,str):
@@ -199,9 +192,6 @@ def histogramm(data):
 	else:
 		print "data must be string"
 		return "invalid"
-<<<<<<< HEAD
->>>>>>> Update encryptionLib.py
-=======
 
 # subtracts the srings (only the letters)
 # if the strings don't have the same size the shorter will be padded with A (means Zero)
@@ -217,4 +207,3 @@ def subtractStrings(minuend,subtrahend):
 	else:
 		print "both parameters must be strings"
 		return "invalid"
->>>>>>> Update encryptionLib.py
