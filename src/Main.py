@@ -24,3 +24,4 @@ def main():
 	print 'Dec: '+decryption(enc,key)
 	
 main()
+raw_input()
