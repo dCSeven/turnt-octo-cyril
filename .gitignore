@@ -1,3 +1,5 @@
 nppBackup
-.pyo
-.pyc
+*~
+*.pyo
+*.pyc
+
