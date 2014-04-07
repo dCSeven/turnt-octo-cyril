@@ -10,10 +10,11 @@ import sys
 
 from encryptionLib import *	# encryption stuff is in encryptionLib.py
 
-encryption=vigenere_enc
-decryption=vigenere_dec
+encryption=rc4_enc
+decryption=rc4_dec
 #data=array('c',map(chr,range(49,126))).tostring()
 data="this is sparta98"
+
 
 #key=5
 key="cxfk go9"
@@ -35,8 +36,20 @@ def readParams():
 #	args.log.write('%s' % sum(args.integers))
 #	args.log.close()
 
+def readParams_second():
+	argv=list(sys.argv)
+	if '-h' in argv : usage() 
+#	elif argv
+def usage():pass
 
 def main():
+	global encryption,decryption,data,key
+	enc=encryption(data,key)
+	print 'Txt:'+str(map(ord,data))
+	print 'Enc:'+str(enc)
+	print 'Dec:'+str(decryption(enc,key))
+
+def main_real():
 	global encryption,data,key
 	readParams()
 	#print 'Current data is\n'+data+' with key: '+str(key)

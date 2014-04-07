@@ -163,7 +163,74 @@ def vernam_dec(data,key):return vernam(data.decode('base64'),key)
 #XXX maybe compress before encryption to make more secure (*but* the header is identifiable (therefore must be cut))
 
 
+#### RC4
+# key_len:1<=k<=256Byte typ:5<=k<=16
+class rc4_pn_gen:
+	li=map(int,range(0,256))
+	i=j=0
+	def __init__(self,key):
+		self.perm(map(ord,key)) # don't store the key (security stuff)
+	def __iter__(self):
+		return self
+	def perm(self,key):
+		self.j=0
+		for i in xrange(0,256):
+			self.j=(self.j+self.li[i]+key[i%len(key)])%256
+			self.li[i],self.li[self.j]=self.li[self.j],self.li[i]	# swap li[i] and li[j]
+		self.i=self.j=0
+	def next(self):
+		self.i=(self.i+1)%256
+		self.j=(self.j+self.li[self.i])%256
+		try:return self.li[(self.li[self.i]+self.li[self.j])%256]
+		finally:self.li[self.i],self.li[self.j]=self.li[self.j],self.li[self.i]
+		
+def rc4_enc(data,key):
+	if len(key)<1 or len(key)>=256: raise ValueError("len(key) must be anywhere in between 1 and 256") 
+	rc4_png=rc4_pn_gen(key)
+	del key # security stuff
+	li=list()
+	if isinstance(data,str):data=map(ord,data)
+	for i in data:
+		li.append(i^rc4_png.next())
+	return li
 
+rc4_dec=rc4_enc
+
+def rc4_enc_iter(data,key):
+	rc4_png=rc4_pn_gen(key)
+	del key
+	for i in data:
+		yield i^rc4_png.next()
+
+rc4_dec_iter=rc4_enc_iter
+
+#### A5/1
+
+class a5_pn_gen:
+	def __init__(self,key):raise NotImplementedError()
+	def __iter__(self):
+		return self
+	def perm(self,key):pass
+	def next(self):pass
+
+def a5_enc(data,key):
+	if len(key)<1 or len(key)>=256: raise ValueError("len(key) must be anywhere in between 1 and 256") 
+	a5_png=a5_pn_gen(key)
+	del key # security stuff
+	li=list()
+	for i in data:
+		li.append(i^a5_png.next())
+	return li
+
+a5_dec=a5_enc
+
+def a5_enc_iter(data,key):
+	a5_png=a5_pn_gen(key)
+	del key
+	for i in data:
+		yield i^a5_png.next()
+
+a5_dec_iter=a5_enc_iter
 ####Random (selfmade)
 import random
 
